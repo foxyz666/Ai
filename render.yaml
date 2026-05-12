@@ -1,0 +1,34 @@
+# Render Blueprint — one-click deploy for Neon AI.
+#
+# Usage:
+#   1. Fork / push this repo to your own GitHub account.
+#   2. Open https://render.com/deploy?repo=<your-repo-url>
+#      (or click the "Deploy to Render" button in the README).
+#   3. Render reads this file, provisions the service, and prompts you for the
+#      OPENROUTER_API_KEY and TAVILY_API_KEY secrets.
+#   4. After the build finishes you get a public https URL serving both the SPA
+#      and the /api/* endpoints from the same origin.
+#
+# The free instance plan spins down after ~15 minutes of inactivity; first
+# request after a cold start may take ~30 seconds. Upgrade to "starter" to keep
+# it warm.
+
+services:
+  - type: web
+    name: neon-ai
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: DEFAULT_MODEL
+        value: nvidia/nemotron-3-super-120b-a12b:free
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
