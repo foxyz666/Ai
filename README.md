@@ -152,11 +152,12 @@ Returns server status and which integrations are configured.
 ```json
 {
   "models": [
+    { "id": "nvidia/nemotron-3-super-120b-a12b:free", "name": "NVIDIA Nemotron 3 Super", "description": "..." },
     { "id": "deepseek/deepseek-chat-v3-0324:free", "name": "DeepSeek Chat v3", "description": "..." },
     { "id": "meta-llama/llama-3.1-8b-instruct:free", "name": "Llama 3.1 8B Instruct", "description": "..." },
     { "id": "mistralai/mistral-7b-instruct:free", "name": "Mistral 7B Instruct", "description": "..." }
   ],
-  "default": "deepseek/deepseek-chat-v3-0324:free"
+  "default": "nvidia/nemotron-3-super-120b-a12b:free"
 }
 ```
 

@@ -61,6 +61,12 @@ export async function chatCompletion({ model, messages, temperature = 0.7, signa
 // Available free models surfaced to the frontend model picker.
 export const FREE_MODELS = [
   {
+    id: "nvidia/nemotron-3-super-120b-a12b:free",
+    name: "NVIDIA Nemotron 3 Super",
+    description:
+      "NVIDIA's 120B-parameter hybrid Mamba-Transformer MoE (12B active) with a 1M-token context — strong all-rounder.",
+  },
+  {
     id: "deepseek/deepseek-chat-v3-0324:free",
     name: "DeepSeek Chat v3",
     description: "Strong general-purpose free model from DeepSeek.",
