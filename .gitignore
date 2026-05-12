@@ -27,6 +27,10 @@ pnpm-debug.log*
 .idea/
 *.swp
 
+# local devin artifacts (test plans, reports)
+.test-plan-*.md
+test-report.md
+
 # OS
 .DS_Store
 Thumbs.db

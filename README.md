@@ -4,10 +4,24 @@ A modern, full-stack AI chat web app — Perplexity / Cursor inspired, with a **
 
 - **Frontend:** React 18 + Vite + TailwindCSS + Framer Motion
 - **Backend:** Node.js + Express, server-sent events for streaming
-- **AI:** [OpenRouter](https://openrouter.ai) (free models like DeepSeek, Llama 3.1, Mistral)
+- **AI:** [OpenRouter](https://openrouter.ai) (free models including NVIDIA Nemotron 3 Super, DeepSeek, Llama 3.1, Mistral)
 - **Search:** [Tavily](https://tavily.com)
 
 All API keys live on the **backend only** — the browser never sees them.
+
+## Deploy
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/foxyz666/Ai)
+
+Render reads `render.yaml` and provisions a single web service that serves both
+the React SPA and the `/api/*` endpoints. You'll be prompted for
+`OPENROUTER_API_KEY` and `TAVILY_API_KEY` as secrets. On the free plan the
+service spins down after ~15 minutes idle (first request after a cold start can
+take ~30 s — upgrade the plan to keep it warm).
+
+Prefer Fly.io, Railway, or Cloud Run? The included `Dockerfile` is portable —
+build with `docker build -t neon-ai .` and run with
+`docker run -p 8080:8080 -e OPENROUTER_API_KEY=... -e TAVILY_API_KEY=... neon-ai`.
 
 ---
 
@@ -126,8 +140,14 @@ npm run dev:frontend
 
 ```bash
 npm run build           # builds frontend/dist
-npm start               # starts backend (serve frontend/dist with any static host)
+npm start               # starts backend (also serves frontend/dist at /)
 ```
+
+The Express server detects `frontend/dist/index.html` at boot and, if present,
+serves it (and the rest of `dist/`) on the same origin as `/api/*`. This means
+a single deploy unit — no separate static host needed. Override the location
+via `FRONTEND_DIST=/some/path` if your build output lives elsewhere (the
+included Dockerfile uses this).
 
 ---
 
